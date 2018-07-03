@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Translate from '@/components/Translate'
+import TranslateOut from '@/components/TranslateOut'
 
 Vue.use(Router)
 
@@ -8,8 +9,15 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Translate',
+      component: Translate,
+      children:[
+      	{
+      		path:"/translated",
+      		name:'Translated',
+      		component:TranslateOut
+      	}
+      ]
     }
   ]
 })
