@@ -1,16 +1,19 @@
 <template>
 	<div class="translate">
-		<form @submit="translateSubmit">
+		<div class="box">
 			<textarea v-model="textToTranslate"></textarea>
 			
-			<select id="">
-				<option value="en">English</option>
+			<select id="" v-model="lang">
+				<option v-for="item in translateLang" :value="item.lang">{{item.value}}</option>
 			</select>
 
-			<router-link tag="input" type="submit" value="翻译" to="/translated" ></router-link>
+			<!-- <router-link tag="input" type="button" value="翻译" :to="'/translated/'+textToTranslate"></router-link> -->
+			
+			<a href="javascript:;" @click="translateSubmit">翻译</a>
 
 			<router-view />
-		</form>
+
+		</div>
 	</div>
 </template>
 <script>
@@ -18,27 +21,32 @@
 		name:'Translate',
 		data(){
 			return{
-				textToTranslate:''
+				textToTranslate:'',
+				lang:'en',
+				translateLang:[
+					{lang:'en',value:'English'},
+					{lang:'ru',value:'Russian'},
+					{lang:'ko',value:'Korean'},
+					{lang:'ja',value:'Janpenese'},
+				]
+			}
+		},
+		mounted(){
+			this.textToTranslate = this.$route.params.word;
+			if(!this.$route.params.lang){
+				this.lang = 'en';
+			}else{
+				this.lang = this.$route.params.lang;
 			}
 		},
 		methods:{
 			translateSubmit(e){
-				this.$axios({
-					method:'get',
-					url:'https://translate.yandex.net/api/v1.5/tr.json/translate',
-					data:{
-						key:'trnsl.1.1.20170721T082515Z.54cf3dc583f679db.f4a96182281281d8b5dfe24b4e88298e2133f219',
-						lang:'en',
-						text:'test'
-					},
-					timeout: 2000,
-				})
-				.then(function(response){
-					console.log(response)
-				})
-				.catch(function(error){
-					console.log(error)
-				})
+				if (this.textToTranslate == "") {
+					alert("请输入要翻译的内容!");
+					this.$router.push("/");
+				}else{
+					this.$router.push({name:'Translated', params:{word:this.textToTranslate,lang:this.lang}});
+				}
 
 				e.preventDefault();
 			}
@@ -46,7 +54,7 @@
 	}
 </script>
 <style scoped>
-	form{
+	.box{
 		margin:auto;
 		max-width: 900px;
 	}

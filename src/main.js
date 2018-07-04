@@ -8,6 +8,19 @@ import Axios from 'Axios'
 
 Vue.prototype.$axios = Axios
 
+//全局配置
+//Axios.defaults.baseURL = "https://api.douban.com";
+Axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+// 发送请求前处理request的数据
+Axios.defaults.transformRequest = [function(data) {
+  // Do whatever you want to transform the data
+  var newData = '';
+  for (var k in data) {
+    newData += encodeURIComponent(k) + '=' + encodeURIComponent(data[k]) + '&';
+  }
+  return newData;
+}]
+
 
 Vue.config.productionTip = false
 

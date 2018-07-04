@@ -6,18 +6,19 @@ import TranslateOut from '@/components/TranslateOut'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
+  routes: [{
+      path: '*', //当url不存在 自动跳转到首页
+      redirect: '/'
+    },
     {
       path: '/',
       name: 'Translate',
       component: Translate,
-      children:[
-      	{
-      		path:"/translated",
-      		name:'Translated',
-      		component:TranslateOut
-      	}
-      ]
+      children: [{
+        path: "/translated/:word/:lang",
+        name: 'Translated',
+        component: TranslateOut
+      }]
     }
   ]
 })
