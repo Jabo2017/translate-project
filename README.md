@@ -24,8 +24,10 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 ## 路由配置
 
+```
 >  1、不存在路径处理
 >  2、参数配置获取
+```
 
 
 ## axios请求
@@ -33,11 +35,11 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 
 # 技术要求
-
+```
 > 1、有一定vue 基础
 > 2、理解vue 的生命周期
 > 3、vue路由概念
-
+```
 
 # 存在的问题
 
